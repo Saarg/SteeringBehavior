@@ -16,8 +16,6 @@
 *.log
 
 *.opensdf
-*.vcxproj
-*.vcxproj.filters
 *.XML
 
 UpgradeLog.xml
