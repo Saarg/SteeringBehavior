@@ -181,9 +181,9 @@ void Vehicle::InitializeBuffer()
 {
   const int NumVehicleVerts = 3;
 
-  Vector2D vehicle[NumVehicleVerts] = {Vector2D(-1.0f,0.6f),
-                                        Vector2D(1.0f,0.0f),
-                                        Vector2D(-1.0f,-0.6f)};
+  Vector2D vehicle[NumVehicleVerts] = {Vector2D(-2.0f,1.2f),
+                                        Vector2D(2.0f,0.0f),
+                                        Vector2D(-2.0f,-1.2f)};
 
   //setup the vertex buffers and calculate the bounding radius
   for (int vtx=0; vtx<NumVehicleVerts; ++vtx)
