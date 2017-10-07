@@ -21,11 +21,16 @@
 
 class AgentLeader : public Vehicle
 {
+private : 
+
+	std::vector<Vehicle*> followers;
 
 public :
 	AgentLeader(GameWorld* world,Vector2D position,double rotation,Vector2D velocity,double mass,double max_force,double max_speed,double max_turn_rate,double scale);
 	~AgentLeader();
-
+	void Update(double time_elapsed);
+	void AddFollower(Vehicle* follower);
+	Vector2D CalculateOffsetLine();
 };
 
 

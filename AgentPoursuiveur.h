@@ -13,6 +13,7 @@
 #include "Vehicle.h"
 #include "2d/Vector2D.h"
 #include "misc/Smoother.h"
+#include "AgentLeader.h"
 
 #include <vector>
 #include <list>
@@ -22,14 +23,17 @@
 class AgentPoursuiveur : public Vehicle
 {
 private :
-	Vehicle* leaderToFollow;
+	AgentLeader* leaderToFollow;
 	Vector2D offset;
+	double triggerRadius;
 
 public :
 	AgentPoursuiveur(GameWorld* world,Vector2D position,double rotation,Vector2D velocity,double mass,double max_force,double max_speed,double max_turn_rate,double scale);
 	~AgentPoursuiveur();
+	void Update(double time_elapsed);
 	void LeaderDetected(Vehicle* leader);
-
+	void SetOffset(Vector2D vect){offset = vect;}
+		
 };
 
 

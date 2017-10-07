@@ -108,6 +108,9 @@ public:
   //this returns the next entity in the neighbor vector
   inline entity& next(){++m_curNeighbor; return *m_curNeighbor;}
 
+  // en bref ...
+  std::vector<entity>  GetNeighbors(){return m_Neighbors;}
+
   //returns true if the end of the vector is found (a zero value marks the end)
   inline bool   end(){return (m_curNeighbor == m_Neighbors.end()) || (*m_curNeighbor == 0);}   
    

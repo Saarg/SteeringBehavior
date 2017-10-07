@@ -64,9 +64,9 @@ GameWorld::GameWorld(int cx, int cy):
                                     Vector2D(0,0),            //velocity
                                     Prm.VehicleMass,          //mass
                                     Prm.MaxSteeringForce,     //max force
-                                    .8*Prm.MaxSpeed,             //max velocity
-                                    Prm.MaxTurnRatePerSecond, //max turn rate
-                                    2*Prm.VehicleScale);        //scale
+                                    0.5 * Prm.MaxSpeed,             //max velocity
+                                    0.1 * Prm.MaxTurnRatePerSecond, //max turn rate
+                                    Prm.VehicleScale);        //scale
 
 	m_Vehicles.push_back(pVehicle);
 
@@ -93,7 +93,7 @@ GameWorld::GameWorld(int cx, int cy):
                                     Prm.MaxSteeringForce,     //max force
                                     Prm.MaxSpeed,             //max velocity
                                     Prm.MaxTurnRatePerSecond, //max turn rate
-                                    Prm.VehicleScale);        //scale
+                                    .5*Prm.VehicleScale);        //scale
 
 	m_Vehicles.push_back(pVehicle);
 
@@ -116,7 +116,7 @@ GameWorld::GameWorld(int cx, int cy):
 
   }
 #endif
-  */
+*/
  
   //create any obstacles or walls
   //CreateObstacles();
@@ -378,7 +378,6 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
        break;
 
     case ID_OB_WALLS:
-
       m_bShowWalls = !m_bShowWalls;
 
       if (m_bShowWalls)

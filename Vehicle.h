@@ -26,7 +26,7 @@ class SteeringBehavior;
 class Vehicle : public MovingEntity
 {
 
-private:
+protected:
 
   //a pointer to the world data. So a vehicle can access any obstacle,
   //path, wall or agent data
@@ -51,6 +51,10 @@ private:
   //keeps a track of the most recent update time. (some of the
   //steering behaviors make use of this - see Wander)
   double                m_dTimeElapsed;
+
+  //Tell if the vehicle is a leading one
+  bool					isLeader;
+  bool					isFollowingLeader;
 
 
   //buffer for the vehicle shape
@@ -79,7 +83,7 @@ public:
   ~Vehicle();
 
   //updates the vehicle's position and orientation
-  void        Update(double time_elapsed);
+  virtual void        Update(double time_elapsed) = 0;
 
   void        Render();
 
@@ -97,7 +101,12 @@ public:
   void        ToggleSmoothing(){m_bSmoothingOn = !m_bSmoothingOn;}
   
   double       TimeElapsed()const{return m_dTimeElapsed;}
- 
+
+  bool		   GetIsLeader(){return isLeader;}
+  void		   SetIsLeader(bool state){isLeader = state;}
+
+  bool		   GetIsFollowingLeader(){return isFollowingLeader;}
+  void		   SetIsFollowingLeader(bool state){isFollowingLeader = state;}
 };
 
 
