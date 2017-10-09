@@ -31,6 +31,7 @@ Vehicle::Vehicle(GameWorld* world,
 	max_turn_rate,
 	max_force),
 	isFollowingLeader(false),
+	isActivated(true),
 	m_pWorld(world),
 	m_vSmoothedHeading(Vector2D(0,0)),
 	m_bSmoothingOn(false),
@@ -118,6 +119,9 @@ m_vSmoothedHeading = m_pHeadingSmoother->Update(Heading());
 //-----------------------------------------------------------------------------
 void Vehicle::Render()
 { 
+	if (!isActivated)
+		return;
+
 	//a vector to hold the transformed vertices
 	static std::vector<Vector2D>  m_vecVehicleVBTrans;
 

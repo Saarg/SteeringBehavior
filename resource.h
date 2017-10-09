@@ -18,6 +18,11 @@
 #define ID_VIEW_FPS                     40013
 #define ID_MENU_SMOOTHING               40014
 #define IDM_PARTITION_VIEW_NEIGHBORS    40015
+#define ID_PLAYER						40016
+#define ID_LEADER1						40017
+#define ID_LEADER2						40018
+#define ID_FORM_V						40019
+#define ID_FORM_LINE					40020
 
 // Next default values for new objects
 // 

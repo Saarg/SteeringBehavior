@@ -55,6 +55,7 @@ protected:
   //Tell if the vehicle is a leading one
   bool					isLeader;
   bool					isFollowingLeader;
+  bool					isActivated;
 
 
   //buffer for the vehicle shape
@@ -107,6 +108,9 @@ public:
 
   bool		   GetIsFollowingLeader(){return isFollowingLeader;}
   void		   SetIsFollowingLeader(bool state){isFollowingLeader = state;}
+
+  bool		   GetIsActivated(){return isActivated;}
+  void		   SetIsActivated(bool state){isActivated = state;}
 };
 
 

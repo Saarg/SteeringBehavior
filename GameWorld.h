@@ -26,6 +26,8 @@
 class Obstacle;
 class Wall2D;
 class Path;
+class AgentPoursuiveur;
+class AgentLeader;
 
 
 typedef std::vector<BaseGameEntity*>::iterator  ObIt;
@@ -74,7 +76,6 @@ private:
   bool  m_bRenderNeighbors;
   bool  m_bViewKeys;
   bool  m_bShowCellSpaceInfo;
-
 
   void CreateObstacles();
 

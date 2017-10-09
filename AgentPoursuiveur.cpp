@@ -39,6 +39,9 @@ void AgentPoursuiveur::LeaderDetected(Vehicle* leader)
 
 void AgentPoursuiveur::Update(double time_elapsed)
 {    
+	if (!isActivated)
+		return;
+
 	//update the time elapsed
 	m_dTimeElapsed = time_elapsed;
 
@@ -89,22 +92,21 @@ void AgentPoursuiveur::Update(double time_elapsed)
 		m_vSmoothedHeading = m_pHeadingSmoother->Update(Heading());
 	}
 
-	if(leaderToFollow == nullptr){
+	if(!isFollowingLeader){
 		//A modifier
 		//	gdi->GreenPen();
 		//	gdi->Circle(Pos(), triggerRadius); 
-		this->World()->CellSpace()->CalculateNeighbors(Pos(),triggerRadius);
+		this->World()->CellSpace()->CalculateNeighbors(Pos(), triggerRadius);
 
 		for (Vehicle* cur_Vehicle = this->World()->CellSpace()->begin();
 			!this->World()->CellSpace()->end();     
 			cur_Vehicle = this->World()->CellSpace()->next())
 		{
-			if(cur_Vehicle->GetIsLeader() == true)
+			if(cur_Vehicle->GetIsLeader() == true && cur_Vehicle->GetIsActivated())
 			{
 				LeaderDetected(cur_Vehicle);
 				break;
 			}
 		}
-		World()->CellSpace()->EmptyCells();
 	}
 }

@@ -26,7 +26,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 // Menu
 //
 
-IDR_MENU1 MENU DISCARDABLE 
+IDR_MENU1 MENU DISCARDABLE
 BEGIN
     POPUP "Objects"
     BEGIN
@@ -53,6 +53,17 @@ BEGIN
     BEGIN
         MENUITEM "On/Off",                      ID_MENU_SMOOTHING
     END
+    POPUP "Agents"
+    BEGIN
+        MENUITEM "Player",                      ID_PLAYER
+        MENUITEM "Leader 1",                    ID_LEADER1
+        MENUITEM "Leader 2",                    ID_LEADER2
+    END
+    POPUP "Formation"
+    BEGIN
+        MENUITEM "V",                           ID_FORM_V
+        MENUITEM "Line",                        ID_FORM_LINE
+    END
 END
 
 
@@ -62,18 +73,18 @@ END
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE DISCARDABLE
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE DISCARDABLE
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE DISCARDABLE
 BEGIN
     "\r\n"
     "\0"
@@ -95,4 +106,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-
