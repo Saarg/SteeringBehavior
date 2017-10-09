@@ -24,16 +24,19 @@ class AgentPoursuiveur : public Vehicle
 {
 private :
 	AgentLeader* leaderToFollow;
-	Vector2D offset;
 	double triggerRadius;
+	int indexInFormation;
 
 public :
 	AgentPoursuiveur(GameWorld* world,Vector2D position,double rotation,Vector2D velocity,double mass,double max_force,double max_speed,double max_turn_rate,double scale);
 	~AgentPoursuiveur();
 	void Update(double time_elapsed);
 	void LeaderDetected(Vehicle* leader);
-	void SetOffset(Vector2D vect){offset = vect;}
-		
+	void UpdateOffsetFollower();
+
+	int GetIndexInFormation(){return indexInFormation;}
+	void SetIndexInFormation(int index){ indexInFormation = index;}
+	
 };
 
 

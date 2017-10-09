@@ -25,9 +25,6 @@ class Vehicle;
 class CController;
 class Wall2D;
 class BaseGameEntity;
-class BaseGameEntity;
-
-
 
 
 //--------------------------- Constants ----------------------------------
@@ -35,7 +32,7 @@ class BaseGameEntity;
 //the radius of the constraining circle for the wander behavior
 const double WanderRad    = 1.2;
 //distance the wander circle is projected in front of the agent
-const double WanderDist   = 2.0;
+const double WanderDist   = 5.0;
 //the maximum amount of displacement along the circle each frame
 const double WanderJitterPerSec = 80.0;
 

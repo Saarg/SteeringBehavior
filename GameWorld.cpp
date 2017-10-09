@@ -62,8 +62,8 @@ m_cxClient(cx),
 		Vector2D(0,0),					//velocity
 		Prm.VehicleMass,				//mass
 		Prm.MaxSteeringForce,			//max force
-		Prm.MaxSpeed,             //max velocity
-		Prm.MaxTurnRatePerSecond, //max turn rate
+		.5*Prm.MaxSpeed,             //max velocity
+		.2*Prm.MaxTurnRatePerSecond, //max turn rate
 		Prm.VehicleScale);				//scale
 
 	SpawnPos = Vector2D(cx/2.0+RandomClamped()*cx/2.0,
@@ -104,7 +104,7 @@ m_cxClient(cx),
 			SpawnPos,                 //initial position
 			RandFloat()*TwoPi,        //start rotation
 			Vector2D(0,0),            //velocity
-			Prm.VehicleMass,          //mass
+			0.1*Prm.VehicleMass,          //mass
 			Prm.MaxSteeringForce,     //max force
 			Prm.MaxSpeed,             //max velocity
 			Prm.MaxTurnRatePerSecond, //max turn rate
@@ -564,10 +564,18 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 		ChangeMenuState(hwnd, ID_LEADER2, m_Vehicles[1]->GetIsActivated() ? MFS_CHECKED : MFS_UNCHECKED);
 		break;
-	case ID_FORM_V:
-		break;
 	case ID_FORM_LINE:
+		//On the selected leader ...
+		((AgentLeader*)m_Vehicles[0])->SetFormation(Line);
+		ChangeMenuState(hwnd, ID_FORM_LINE, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V, MFS_UNCHECKED);
 		break;
+	case ID_FORM_V:
+		((AgentLeader*)m_Vehicles[0])->SetFormation(V);
+		ChangeMenuState(hwnd, ID_FORM_LINE, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V, MFS_CHECKED);
+		break;
+	
 	}//end switch
 }
 

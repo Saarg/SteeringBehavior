@@ -90,6 +90,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 			ChangeMenuState(hwnd, ID_LEADER1, MFS_CHECKED);
 			ChangeMenuState(hwnd, ID_LEADER2, MFS_UNCHECKED);
 			ChangeMenuState(hwnd, ID_FORM_LINE, MFS_CHECKED);
+			ChangeMenuState(hwnd, ID_FORM_V, MFS_UNCHECKED);
 
 		}
 

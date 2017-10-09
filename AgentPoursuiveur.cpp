@@ -108,5 +108,27 @@ void AgentPoursuiveur::Update(double time_elapsed)
 				break;
 			}
 		}
+	}else{// On update l'offset de l'offset poursuit
+		UpdateOffsetFollower();		
+	}
+}
+
+void AgentPoursuiveur::UpdateOffsetFollower(){
+	switch(leaderToFollow->GetFormation())
+	{
+	case(Line):
+		//Steering()->SetOffset(leaderToFollow->GetDistBetweenFollowers()*Vec2DNormalize(leaderToFollow->Heading()));
+		Steering()->SetOffset(leaderToFollow->Heading());
+		break;		
+	case(V):
+		if(indexInFormation%2 == 0){
+			Steering()->SetOffset(leaderToFollow->Heading()+5*Vec2DNormalize(leaderToFollow->Side()));
+		}else{
+			Steering()->SetOffset(leaderToFollow->Heading()-5*Vec2DNormalize(leaderToFollow->Side()));
+		}
+		break;
+
+	default:
+		break;
 	}
 }
