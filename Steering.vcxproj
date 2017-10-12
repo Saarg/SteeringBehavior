@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AgentLeader.cpp" />
+    <ClCompile Include="AgentPlayer.cpp" />
     <ClCompile Include="AgentPoursuiveur.cpp" />
     <ClCompile Include="GameWorld.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -191,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgentLeader.h" />
+    <ClInclude Include="AgentPlayer.h" />
     <ClInclude Include="AgentPoursuiveur.h" />
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include=".\Common\misc\CellSpacePartition.h" />

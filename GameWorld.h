@@ -28,6 +28,7 @@ class Wall2D;
 class Path;
 class AgentPoursuiveur;
 class AgentLeader;
+class AgentPlayer;
 
 
 typedef std::vector<BaseGameEntity*>::iterator  ObIt;

@@ -2,6 +2,7 @@
 #include "Vehicle.h"
 #include "AgentPoursuiveur.h"
 #include "AgentLeader.h"
+#include "AgentPlayer.h"
 #include "constants.h"
 #include "Obstacle.h"
 #include "2d/Geometry.h"
@@ -62,8 +63,8 @@ m_cxClient(cx),
 		Vector2D(0,0),					//velocity
 		Prm.VehicleMass,				//mass
 		Prm.MaxSteeringForce,			//max force
-		.5*Prm.MaxSpeed,             //max velocity
-		.2*Prm.MaxTurnRatePerSecond, //max turn rate
+		.5*Prm.MaxSpeed,				//max velocity
+		.2*Prm.MaxTurnRatePerSecond,	//max turn rate
 		Prm.VehicleScale);				//scale
 
 	SpawnPos = Vector2D(cx/2.0+RandomClamped()*cx/2.0,
@@ -75,19 +76,32 @@ m_cxClient(cx),
 		Vector2D(0,0),					//velocity
 		Prm.VehicleMass,				//mass
 		Prm.MaxSteeringForce,			//max force
-		Prm.MaxSpeed,             //max velocity
-		Prm.MaxTurnRatePerSecond, //max turn rate
+		.5*Prm.MaxSpeed,				//max velocity
+		.2*Prm.MaxTurnRatePerSecond,	//max turn rate
+		Prm.VehicleScale);				//scale
+
+	AgentPlayer* player = new AgentPlayer(this,
+		SpawnPos,						//initial position
+		RandFloat()*TwoPi,				//start rotation
+		Vector2D(0,0),					//velocity
+		Prm.VehicleMass,				//mass
+		Prm.MaxSteeringForce,			//max force
+		.5*Prm.MaxSpeed,				//max velocity
+		.2*Prm.MaxTurnRatePerSecond,	//max turn rate
 		Prm.VehicleScale);				//scale
 
 	leader1->SetIsActivated(true);
 	leader2->SetIsActivated(false);
+	player->SetIsActivated(false);
 
 	m_Vehicles.push_back(leader1);
 	m_Vehicles.push_back(leader2);
+	m_Vehicles.push_back(player);
 
 	//add it to the cell subdivision
 	m_pCellSpace->AddEntity(leader1);
 	m_pCellSpace->AddEntity(leader2);
+	m_pCellSpace->AddEntity(player);
 
 	//////////////////////////////////////
 	//          SETUP AGENT
@@ -294,6 +308,7 @@ void GameWorld::SetCrosshair(POINTS p)
 //------------------------- HandleKeyPresses -----------------------------
 void GameWorld::HandleKeyPresses(WPARAM wParam)
 {
+	AgentPlayer* p = (AgentPlayer*)(m_Vehicles[2]);
 
 	switch(wParam)
 	{
@@ -352,6 +367,18 @@ void GameWorld::HandleKeyPresses(WPARAM wParam)
 				m_Vehicles[i]->Steering()->ObstacleAvoidanceOn();
 			}
 		}
+		break;
+	case 'W':
+		p->SteeringForce = Vector2D(0, -50);
+		break;
+	case 'A':
+		p->SteeringForce = Vector2D(-50, 0);
+		break;
+	case 'S':
+		p->SteeringForce = Vector2D(0, 50);
+		break;
+	case 'D':
+		p->SteeringForce = Vector2D(50, 0);
 		break;
 
 	}//end switch
@@ -553,6 +580,9 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		break;
 
 	case ID_PLAYER:
+		m_Vehicles[2]->SetIsActivated(!m_Vehicles[2]->GetIsActivated());
+
+		ChangeMenuState(hwnd, ID_PLAYER, m_Vehicles[2]->GetIsActivated() ? MFS_CHECKED : MFS_UNCHECKED);
 		break;
 	case ID_LEADER1:
 		m_Vehicles[0]->SetIsActivated(!m_Vehicles[0]->GetIsActivated());
@@ -565,13 +595,16 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		ChangeMenuState(hwnd, ID_LEADER2, m_Vehicles[1]->GetIsActivated() ? MFS_CHECKED : MFS_UNCHECKED);
 		break;
 	case ID_FORM_LINE:
-		//On the selected leader ...
 		((AgentLeader*)m_Vehicles[0])->SetFormation(Line);
+		((AgentLeader*)m_Vehicles[1])->SetFormation(Line);
+		((AgentLeader*)m_Vehicles[2])->SetFormation(Line);
 		ChangeMenuState(hwnd, ID_FORM_LINE, MFS_CHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V, MFS_UNCHECKED);
 		break;
 	case ID_FORM_V:
 		((AgentLeader*)m_Vehicles[0])->SetFormation(V);
+		((AgentLeader*)m_Vehicles[1])->SetFormation(V);
+		((AgentLeader*)m_Vehicles[2])->SetFormation(V);
 		ChangeMenuState(hwnd, ID_FORM_LINE, MFS_UNCHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V, MFS_CHECKED);
 		break;

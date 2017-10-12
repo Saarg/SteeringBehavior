@@ -136,6 +136,7 @@ void Vehicle::Render()
 		else gdi->RedPen();
 	}
 	else if (isFollowingLeader == true) gdi->RedPen();
+	else if (isPlayer == true) gdi->GreenPen();
 	else
 	{
 		gdi->BluePen();

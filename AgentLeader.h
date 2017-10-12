@@ -26,7 +26,7 @@ static enum Formation
 
 class AgentLeader : public Vehicle
 {
-private : 
+protected : 
 	Formation formation;
 	std::vector<Vehicle*> followers;
 	float distBetweenFollowers;

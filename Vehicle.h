@@ -55,6 +55,7 @@ protected:
   //Tell if the vehicle is a leading one
   bool					isLeader;
   bool					isFollowingLeader;
+  bool					isPlayer;
   bool					isActivated;
 
 
