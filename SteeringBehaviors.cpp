@@ -1461,6 +1461,8 @@ void SteeringBehavior::RenderAids( )
   if (m_pVehicle->ID() == 0){ gdi->TextAtPos(5,NextSlot,"MaxForce(Ins/Del):"); gdi->TextAtPos(160,NextSlot,ttos(m_pVehicle->MaxForce()/Prm.SteeringForceTweaker)); NextSlot+=SlotSize;}
   if (m_pVehicle->ID() == 0){ gdi->TextAtPos(5,NextSlot,"MaxSpeed(Home/End):"); gdi->TextAtPos(160,NextSlot,ttos(m_pVehicle->MaxSpeed()));NextSlot+=SlotSize;}
 
+  if (m_pVehicle->ID() == 0){ gdi->TextAtPos(5,NextSlot,"MaxSpeed(Home/End):"); gdi->TextAtPos(160,NextSlot,ttos(m_pVehicle->MaxSpeed()));NextSlot+=SlotSize;}
+
   //render the steering force
   if (m_pVehicle->World()->RenderSteeringForce())
   {  

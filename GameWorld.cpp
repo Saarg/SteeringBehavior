@@ -41,7 +41,8 @@ m_cxClient(cx),
 	m_pPath(NULL),
 	m_bRenderNeighbors(false),
 	m_bViewKeys(false),
-	m_bShowCellSpaceInfo(false)
+	m_bShowCellSpaceInfo(false),
+	m_bShowingPlayerCommand(false)
 {
 	//setup the spatial subdivision class
 	m_pCellSpace = new CellSpacePartition<Vehicle*>((double)cx, (double)cy, Prm.NumCellsX, Prm.NumCellsY, Prm.NumAgents);
@@ -94,6 +95,7 @@ m_cxClient(cx),
 	leader2->SetIsActivated(false);
 	player->SetIsActivated(false);
 
+	// Do not change the order !!!
 	m_Vehicles.push_back(leader1);
 	m_Vehicles.push_back(leader2);
 	m_Vehicles.push_back(player);
@@ -130,29 +132,13 @@ m_cxClient(cx),
 		m_pCellSpace->AddEntity(pVehicle);
 	}
 
-	/*
-	#define SHOAL
-	#ifdef SHOAL
-	m_Vehicles[Prm.NumAgents-1]->Steering()->FlockingOff();
-	m_Vehicles[Prm.NumAgents-1]->SetScale(Vector2D(10, 10));
-	m_Vehicles[Prm.NumAgents-1]->Steering()->WanderOn();
-	m_Vehicles[Prm.NumAgents-1]->SetMaxSpeed(70);
-
-
-	for (int i=0; i<Prm.NumAgents-1; ++i)
-	{
-	m_Vehicles[i]->Steering()->EvadeOn(m_Vehicles[Prm.NumAgents-1]);
-
-	}
-	#endif
-	*/
-
 	CreateWalls();
 
 	for (unsigned int i=0; i<m_Vehicles.size(); ++i)
 	{
 		m_Vehicles[i]->Steering()->WallAvoidanceOn();
 	}
+
 }
 
 
@@ -579,36 +565,62 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 
 		break;
 
-	case ID_PLAYER:
-		m_Vehicles[2]->SetIsActivated(!m_Vehicles[2]->GetIsActivated());
-
-		ChangeMenuState(hwnd, ID_PLAYER, m_Vehicles[2]->GetIsActivated() ? MFS_CHECKED : MFS_UNCHECKED);
-		break;
+		// LEADER 1
 	case ID_LEADER1:
 		m_Vehicles[0]->SetIsActivated(!m_Vehicles[0]->GetIsActivated());
 
 		ChangeMenuState(hwnd, ID_LEADER1, m_Vehicles[0]->GetIsActivated() ? MFS_CHECKED : MFS_UNCHECKED);
 		break;
+	case ID_FORM_LINE_L1:
+		((AgentLeader*)m_Vehicles[0])->SetFormation(Line);
+		ChangeMenuState(hwnd, ID_FORM_LINE_L1, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_L1, MFS_UNCHECKED);
+		break;
+	case ID_FORM_V_L1:
+		((AgentLeader*)m_Vehicles[0])->SetFormation(V);
+		ChangeMenuState(hwnd, ID_FORM_LINE_L1, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_L1, MFS_CHECKED);
+		break;
+
+		// LEADER 2
 	case ID_LEADER2:
 		m_Vehicles[1]->SetIsActivated(!m_Vehicles[1]->GetIsActivated());
 
 		ChangeMenuState(hwnd, ID_LEADER2, m_Vehicles[1]->GetIsActivated() ? MFS_CHECKED : MFS_UNCHECKED);
 		break;
-	case ID_FORM_LINE:
-		((AgentLeader*)m_Vehicles[0])->SetFormation(Line);
+	case ID_FORM_LINE_L2:
 		((AgentLeader*)m_Vehicles[1])->SetFormation(Line);
-		((AgentLeader*)m_Vehicles[2])->SetFormation(Line);
-		ChangeMenuState(hwnd, ID_FORM_LINE, MFS_CHECKED);
-		ChangeMenuState(hwnd, ID_FORM_V, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_LINE_L2, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_L2, MFS_UNCHECKED);
 		break;
-	case ID_FORM_V:
-		((AgentLeader*)m_Vehicles[0])->SetFormation(V);
+	case ID_FORM_V_L2:
 		((AgentLeader*)m_Vehicles[1])->SetFormation(V);
-		((AgentLeader*)m_Vehicles[2])->SetFormation(V);
-		ChangeMenuState(hwnd, ID_FORM_LINE, MFS_UNCHECKED);
-		ChangeMenuState(hwnd, ID_FORM_V, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_LINE_L2, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_L2, MFS_CHECKED);
 		break;
-	
+
+		// PLAYER
+	case ID_PLAYER:
+		m_Vehicles[2]->SetIsActivated(!m_Vehicles[2]->GetIsActivated());
+		ChangeMenuState(hwnd, ID_PLAYER, m_Vehicles[2]->GetIsActivated() ? MFS_CHECKED : MFS_UNCHECKED);
+		break;
+	case ID_FORM_LINE_P:
+		((AgentLeader*)m_Vehicles[2])->SetFormation(Line);
+		ChangeMenuState(hwnd, ID_FORM_LINE_P, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_P, MFS_UNCHECKED);
+		break;
+	case ID_FORM_V_P:
+		((AgentLeader*)m_Vehicles[2])->SetFormation(V);
+		ChangeMenuState(hwnd, ID_FORM_LINE_P, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_P, MFS_CHECKED);
+		break;
+	case ID_SHOW_COMMAND_P:
+		TogglePlayerCommand();
+		ChangeMenuState(hwnd, ID_SHOW_COMMAND_P, GetPlayerCommand() ? MFS_CHECKED : MFS_UNCHECKED);
+		break;
+
+
+
 	}//end switch
 }
 
@@ -691,4 +703,38 @@ void GameWorld::Render()
 		m_pCellSpace->RenderCells();
 	}
 
+	if(m_bShowingPlayerCommand){
+		Vector2D helpLocation(10,10);
+		gdi->TextAtPos(helpLocation,"Press W to go top.");
+		gdi->TextAtPos(helpLocation + Vector2D(0,15),"Press S to go bot.");
+		gdi->TextAtPos(helpLocation + Vector2D(0,30),"Press A to go left.");
+		gdi->TextAtPos(helpLocation + Vector2D(0,45),"Press D to go right.");
+	}
+
+}
+
+void GameWorld::ResetMenu(HWND hwnd){
+	ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_VIEW_FPS, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_OB_WALLS, MFS_CHECKED);
+
+	ChangeMenuState(hwnd, IDR_PARTITIONING, MFS_UNCHECKED);
+	ChangeMenuState(hwnd, IDM_PARTITION_VIEW_NEIGHBORS, MFS_UNCHECKED);
+
+	ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_VIEW_FPS, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_OB_WALLS, MFS_CHECKED);
+
+	ChangeMenuState(hwnd, ID_LEADER1, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_FORM_LINE_L1, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_FORM_V_L1, MFS_UNCHECKED);
+
+	ChangeMenuState(hwnd, ID_LEADER2, MFS_UNCHECKED);
+	ChangeMenuState(hwnd, ID_FORM_LINE_L2, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_FORM_V_L2, MFS_UNCHECKED);
+
+	ChangeMenuState(hwnd, ID_PLAYER, MFS_UNCHECKED);
+	ChangeMenuState(hwnd, ID_FORM_LINE_P, MFS_CHECKED);
+	ChangeMenuState(hwnd, ID_FORM_V_P, MFS_UNCHECKED);
+	ChangeMenuState(hwnd, ID_SHOW_COMMAND_P, MFS_UNCHECKED);
 }

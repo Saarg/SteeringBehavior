@@ -49,20 +49,32 @@ BEGIN
         MENUITEM "Keys",                        ID_VIEW_KEYS
         MENUITEM "FPS",                         ID_VIEW_FPS
     END
+
     POPUP "Smoothing"
     BEGIN
         MENUITEM "On/Off",                      ID_MENU_SMOOTHING
     END
-    POPUP "Agents"
+
+    POPUP "Leader 1"
     BEGIN
-        MENUITEM "Player",                      ID_PLAYER
-        MENUITEM "Leader 1",                    ID_LEADER1
-        MENUITEM "Leader 2",                    ID_LEADER2
+        MENUITEM "On/Off",                      ID_LEADER1
+		MENUITEM "Line",                        ID_FORM_LINE_L1
+        MENUITEM "V",                           ID_FORM_V_L1
     END
-    POPUP "Formation"
+
+	POPUP "Leader 2"
     BEGIN
-        MENUITEM "V",                           ID_FORM_V
-        MENUITEM "Line",                        ID_FORM_LINE
+        MENUITEM "On/Off",                      ID_LEADER2
+		MENUITEM "Line",                        ID_FORM_LINE_L2
+        MENUITEM "V",                           ID_FORM_V_L2
+    END
+
+	POPUP "Player"
+    BEGIN
+        MENUITEM "On/Off",                      ID_PLAYER
+		MENUITEM "Line",                        ID_FORM_LINE_P
+        MENUITEM "V",                           ID_FORM_V_P
+		MENUITEM "Show/Hide Command",           ID_SHOW_COMMAND_P
     END
 END
 

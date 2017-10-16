@@ -18,18 +18,27 @@
 #define ID_VIEW_FPS                     40013
 #define ID_MENU_SMOOTHING               40014
 #define IDM_PARTITION_VIEW_NEIGHBORS    40015
-#define ID_PLAYER						40016
-#define ID_LEADER1						40017
-#define ID_LEADER2						40018
-#define ID_FORM_V						40019
-#define ID_FORM_LINE					40020
+
+#define ID_LEADER1						40016
+#define ID_FORM_LINE_L1					40017
+#define ID_FORM_V_L1					40018
+
+#define ID_LEADER2						40019
+#define ID_FORM_LINE_L2					40020
+#define ID_FORM_V_L2					40021
+
+#define ID_PLAYER						40022
+#define ID_FORM_LINE_P					40023
+#define ID_FORM_V_P 					40024
+#define ID_SHOW_COMMAND_P				40025
+
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        102
-#define _APS_NEXT_COMMAND_VALUE         40016
+#define _APS_NEXT_COMMAND_VALUE         40050
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

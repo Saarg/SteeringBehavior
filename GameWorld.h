@@ -64,6 +64,8 @@ private:
   //keeps track of the average FPS
   double                         m_dAvFrameTime;
 
+  
+
 
   //flags to turn aids and obstacles etc on/off
   bool  m_bShowWalls;
@@ -77,6 +79,7 @@ private:
   bool  m_bRenderNeighbors;
   bool  m_bViewKeys;
   bool  m_bShowCellSpaceInfo;
+  bool  m_bShowingPlayerCommand;
 
   void CreateObstacles();
 
@@ -143,6 +146,11 @@ public:
   
   void  ToggleViewKeys(){m_bViewKeys = !m_bViewKeys;}
   bool  ViewKeys()const{return m_bViewKeys;}
+
+  void  TogglePlayerCommand(){m_bShowingPlayerCommand = !m_bShowingPlayerCommand;}
+  bool  GetPlayerCommand()const{return m_bShowingPlayerCommand;}
+
+  void ResetMenu(HWND hwnd);
 };
 
 

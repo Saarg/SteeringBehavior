@@ -82,16 +82,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 			ReleaseDC(hwnd, hdc); 
 
 			g_GameWorld = new GameWorld(cxClient, cyClient);
-
-			ChangeMenuState(hwnd, IDR_PRIORITIZED, MFS_CHECKED);
-			ChangeMenuState(hwnd, ID_VIEW_FPS, MFS_CHECKED);
-			ChangeMenuState(hwnd, ID_OB_WALLS, MFS_CHECKED);
-
-			ChangeMenuState(hwnd, ID_LEADER1, MFS_CHECKED);
-			ChangeMenuState(hwnd, ID_LEADER2, MFS_UNCHECKED);
-			ChangeMenuState(hwnd, ID_FORM_LINE, MFS_CHECKED);
-			ChangeMenuState(hwnd, ID_FORM_V, MFS_UNCHECKED);
-
+			g_GameWorld->ResetMenu(hwnd);
 		}
 
 		break;
@@ -127,6 +118,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 					delete g_GameWorld;
 
 					g_GameWorld = new GameWorld(cxClient, cyClient);
+					g_GameWorld->ResetMenu(hwnd);			
 				}
 
 				break;
