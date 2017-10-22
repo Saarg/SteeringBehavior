@@ -1,0 +1,18 @@
+3) Instancier les deux classes précédentes, pour créer un groupe de 20 agentspoursuiveurs
+derrière un seul agent leader. Que constatez-vous si en introduit
+un autre agent leader (2 points)?
+
+Dans notre cas, l'introduction d'un nouveau leader ne perturbe pas les agents déjà existant suivant le leader 1.
+La manière dont les agents poursuiveurs fonctionne est la suivante:
+- il wander tant qu'il ne sont pas près d'un leader
+- lorsqu'il sont à proximité d'un leader, ils se mettent à le suivre, lui, et seulement lui
+- si un second leader passe à proximité de l'agent poursuiveur lorsqu'il suit un leader, il continu de suivre son leader, et ne prend pas en compte le second leader
+
+4) Remplacer un des deux agents leaders par un joueur humain en contrôlant le
+déplacement du groupe à travers les touches de clavier. En d’autres termes,
+créer un agent-leader-humain dont le comportement n’est plus aléatoire mais
+contrôler par un joueur. Que constatez-vous dans ce nouveau type de
+comportement de groupe (2 points)?
+
+On remarque que malgrès qu'un des agents soit controllé par un humain, si on demandait à une personne de deviner lequel est l'humain, et lequel est la machine, il ne saurait pas trouvé avec certitude.
+Le comportement de l'agent PNJ est vraisemblable, et peut passer pour un comportement humain.
