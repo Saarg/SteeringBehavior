@@ -575,11 +575,19 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		((AgentLeader*)m_Vehicles[0])->SetFormation(Line);
 		ChangeMenuState(hwnd, ID_FORM_LINE_L1, MFS_CHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V_L1, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_L1, MFS_UNCHECKED);
 		break;
 	case ID_FORM_V_L1:
 		((AgentLeader*)m_Vehicles[0])->SetFormation(V);
 		ChangeMenuState(hwnd, ID_FORM_LINE_L1, MFS_UNCHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V_L1, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_L1, MFS_UNCHECKED);
+		break;
+	case ID_FORM_X_L1:
+		((AgentLeader*)m_Vehicles[0])->SetFormation(X);
+		ChangeMenuState(hwnd, ID_FORM_LINE_L1, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_L1, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_L1, MFS_CHECKED);
 		break;
 
 		// LEADER 2
@@ -592,11 +600,19 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		((AgentLeader*)m_Vehicles[1])->SetFormation(Line);
 		ChangeMenuState(hwnd, ID_FORM_LINE_L2, MFS_CHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V_L2, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_L2, MFS_UNCHECKED);
 		break;
 	case ID_FORM_V_L2:
 		((AgentLeader*)m_Vehicles[1])->SetFormation(V);
 		ChangeMenuState(hwnd, ID_FORM_LINE_L2, MFS_UNCHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V_L2, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_L2, MFS_UNCHECKED);
+		break;
+	case ID_FORM_X_L2:
+		((AgentLeader*)m_Vehicles[1])->SetFormation(X);
+		ChangeMenuState(hwnd, ID_FORM_LINE_L2, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_L2, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_L2, MFS_CHECKED);
 		break;
 
 		// PLAYER
@@ -608,11 +624,19 @@ void GameWorld::HandleMenuItems(WPARAM wParam, HWND hwnd)
 		((AgentLeader*)m_Vehicles[2])->SetFormation(Line);
 		ChangeMenuState(hwnd, ID_FORM_LINE_P, MFS_CHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V_P, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_P, MFS_UNCHECKED);
 		break;
 	case ID_FORM_V_P:
 		((AgentLeader*)m_Vehicles[2])->SetFormation(V);
 		ChangeMenuState(hwnd, ID_FORM_LINE_P, MFS_UNCHECKED);
 		ChangeMenuState(hwnd, ID_FORM_V_P, MFS_CHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_P, MFS_UNCHECKED);
+		break;
+	case ID_FORM_X_P:
+		((AgentLeader*)m_Vehicles[2])->SetFormation(X);
+		ChangeMenuState(hwnd, ID_FORM_LINE_P, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_V_P, MFS_UNCHECKED);
+		ChangeMenuState(hwnd, ID_FORM_X_P, MFS_CHECKED);
 		break;
 	case ID_SHOW_COMMAND_P:
 		TogglePlayerCommand();
@@ -728,13 +752,16 @@ void GameWorld::ResetMenu(HWND hwnd){
 	ChangeMenuState(hwnd, ID_LEADER1, MFS_CHECKED);
 	ChangeMenuState(hwnd, ID_FORM_LINE_L1, MFS_CHECKED);
 	ChangeMenuState(hwnd, ID_FORM_V_L1, MFS_UNCHECKED);
+	ChangeMenuState(hwnd, ID_FORM_X_L1, MFS_UNCHECKED);
 
 	ChangeMenuState(hwnd, ID_LEADER2, MFS_UNCHECKED);
 	ChangeMenuState(hwnd, ID_FORM_LINE_L2, MFS_CHECKED);
 	ChangeMenuState(hwnd, ID_FORM_V_L2, MFS_UNCHECKED);
+	ChangeMenuState(hwnd, ID_FORM_X_L2, MFS_UNCHECKED);
 
 	ChangeMenuState(hwnd, ID_PLAYER, MFS_UNCHECKED);
 	ChangeMenuState(hwnd, ID_FORM_LINE_P, MFS_CHECKED);
 	ChangeMenuState(hwnd, ID_FORM_V_P, MFS_UNCHECKED);
+	ChangeMenuState(hwnd, ID_FORM_X_P, MFS_UNCHECKED);
 	ChangeMenuState(hwnd, ID_SHOW_COMMAND_P, MFS_UNCHECKED);
 }

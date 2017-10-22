@@ -21,7 +21,8 @@
 static enum Formation 
 { 
 	Line=1,
-	V=2
+	V=2,
+	X=4
 };
 
 class AgentLeader : public Vehicle
@@ -46,6 +47,7 @@ public :
 private : 	
 	void RecalculateOffsetLine();
 	void RecalculateOffsetV();
+	void RecalculateOffsetX();
 };
 
 

@@ -117,17 +117,26 @@ void AgentPoursuiveur::UpdateOffsetFollower(){
 	switch(leaderToFollow->GetFormation())
 	{
 	case(Line):
-		//Steering()->SetOffset(leaderToFollow->GetDistBetweenFollowers()*Vec2DNormalize(leaderToFollow->Heading()));
 		Steering()->SetOffset(Vector2D(-10, 0));
 		break;		
 	case(V):
 		if(indexInFormation%2 == 0){
-			Steering()->SetOffset(Vector2D(-10, 8));
+			Steering()->SetOffset(Vector2D(-10, 10));
 		}else{
-			Steering()->SetOffset(Vector2D(-10, -8));
+			Steering()->SetOffset(Vector2D(-10, -10));
 		}
 		break;
-
+	case(X):
+		if(indexInFormation%4 == 0){
+			Steering()->SetOffset(Vector2D(40, 15));
+		}else if(indexInFormation%4 == 1){
+			Steering()->SetOffset(Vector2D(-10, 15));
+		}else if(indexInFormation%4 == 2){
+			Steering()->SetOffset(Vector2D(-10, -15));
+		}else if(indexInFormation%4 == 3){
+			Steering()->SetOffset(Vector2D(40, -15));
+		}
+		break;
 	default:
 		break;
 	}

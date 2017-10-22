@@ -100,28 +100,53 @@ void AgentLeader::AddFollower(Vehicle* follower){
 
 	//On donne au follower l'offset poursuite que le Leader a choisi
 	switch(formation){
-		case Line:
-			if(followers.size() == 0){
-				follower->Steering()->OffsetPursuitOn(this, 20*Side());
-			}else{
-				follower->Steering()->OffsetPursuitOn(followers[followers.size()-1], 20*Side());
-			}
-			break;
+	case Line:
+		if(followers.size() == 0){
+			follower->Steering()->OffsetPursuitOn(this, Vector2D(-10, 0));
+		}else{
+			follower->Steering()->OffsetPursuitOn(followers[followers.size()-1], Vector2D(-10, 0));
+		}
+		break;
 
-		case V:
-			if(followers.size() == 0){
-				follower->Steering()->OffsetPursuitOn(this, -20*Heading());
-			}else if(followers.size() == 1){
-				follower->Steering()->OffsetPursuitOn(this, -20*Heading());
-			}else if((followers.size()%2) == 0){ 
-				follower->Steering()->OffsetPursuitOn(followers[followers.size()-2], -20*SmoothedHeading()-10*Side());
-			}else{
-				follower->Steering()->OffsetPursuitOn(followers[followers.size()-2], -20*SmoothedHeading()+10*Side());
+	case V:
+		if(followers.size() == 0){
+			follower->Steering()->OffsetPursuitOn(this, Vector2D(-10,10));
+		}else if(followers.size() == 1){
+			follower->Steering()->OffsetPursuitOn(this, Vector2D(10,10));
+		}else if((followers.size()%2) == 0){ 
+			follower->Steering()->OffsetPursuitOn(followers[followers.size()-2], Vector2D(-10,10));
+		}else{
+			follower->Steering()->OffsetPursuitOn(followers[followers.size()-2], Vector2D(10,10));
+		}
+		break;
+	case X:
+		if(followers.size() == 0){
+			follower->Steering()->OffsetPursuitOn(this, Vector2D(10,10));
+		}
+		if(followers.size() == 1){
+			follower->Steering()->OffsetPursuitOn(this, Vector2D(-10,10));
+		}
+		if(followers.size() == 2){
+			follower->Steering()->OffsetPursuitOn(this, Vector2D(-10,-10));
+		}
+		if(followers.size() == 3){
+			follower->Steering()->OffsetPursuitOn(this, Vector2D(10,-10));
+		}
+		if(followers.size() > 3){
+			if(followers.size()%4 == 0){ 
+				follower->Steering()->OffsetPursuitOn(followers[followers.size()-4], Vector2D(10,10));
+			}else if(followers.size()%4 == 1){
+				follower->Steering()->OffsetPursuitOn(followers[followers.size()-4], Vector2D(-10,10));
+			}else if(followers.size()%4 == 2){
+				follower->Steering()->OffsetPursuitOn(followers[followers.size()-4], Vector2D(-10,-10));
+			}else if(followers.size()%4 == 3){
+				follower->Steering()->OffsetPursuitOn(followers[followers.size()-4], Vector2D(10,-10));
 			}
-			break;
+		}
+		break;
 
-		default:
-			break;
+	default:
+		break;
 	}
 	follower->SetIsFollowingLeader(true);
 	((AgentPoursuiveur*)follower)->SetIndexInFormation(followers.size());
@@ -132,39 +157,71 @@ void AgentLeader::SetFormation(Formation form){
 	formation = form;
 	switch(formation)
 	{
-		case(Line):
-			RecalculateOffsetLine();
-			break;
-		case(V):
-			RecalculateOffsetV();
-			break;
-		default:
-			break;
+	case(Line):
+		RecalculateOffsetLine();
+		break;
+	case(V):
+		RecalculateOffsetV();
+		break;
+	case(X):
+		RecalculateOffsetX();
+		break;
+	default:
+		break;
 	}
 }
 
 void AgentLeader::RecalculateOffsetLine(){
 	if(followers.size() != 0){
-		followers[0]->Steering()->OffsetPursuitOn(this, 20*Side());
+		followers[0]->Steering()->OffsetPursuitOn(this, Vector2D(-10, 0));
 		for(unsigned int i =1; i<followers.size(); i++){
-			followers[i]->Steering()->OffsetPursuitOn(followers[i-1], 20*Side());
+			followers[i]->Steering()->OffsetPursuitOn(followers[i-1], Vector2D(-10, 0));
 		}
 	}
 }
 
 void AgentLeader::RecalculateOffsetV(){
 	if(followers.size() > 0){
-		followers[0]->Steering()->OffsetPursuitOn(this, -20*SmoothedHeading()-10*Side());
+		followers[0]->Steering()->OffsetPursuitOn(this, Vector2D(-10,10));
 	}
 	if(followers.size() > 1){
-		followers[1]->Steering()->OffsetPursuitOn(this, -20*SmoothedHeading()+10*Side());
+		followers[1]->Steering()->OffsetPursuitOn(this, Vector2D(10,10));
 	}
 	if(followers.size() > 2){
 		for(unsigned int i =2; i<followers.size(); i++){
 			if(i%2 == 0){ 
-				followers[i]->Steering()->OffsetPursuitOn(followers[i-2], -20*SmoothedHeading()-10*Side());
+				followers[i]->Steering()->OffsetPursuitOn(followers[i-2], Vector2D(-10,10));
 			}else{
-				followers[i]->Steering()->OffsetPursuitOn(followers[i-2], -20*SmoothedHeading()+10*Side());
+				followers[i]->Steering()->OffsetPursuitOn(followers[i-2], Vector2D(10,10));
+			}
+		}
+	}
+}
+
+
+void AgentLeader::RecalculateOffsetX(){
+	if(followers.size() > 0){
+		followers[0]->Steering()->OffsetPursuitOn(this, Vector2D(10,10));
+	}
+	if(followers.size() > 1){
+		followers[1]->Steering()->OffsetPursuitOn(this, Vector2D(-10,10));
+	}
+	if(followers.size() > 2){
+		followers[2]->Steering()->OffsetPursuitOn(this, Vector2D(-10,-10));
+	}
+	if(followers.size() > 3){
+		followers[3]->Steering()->OffsetPursuitOn(this, Vector2D(10,-10));
+	}
+	if(followers.size() > 4){
+		for(unsigned int i = 4; i<followers.size(); i++){
+			if(i%4 == 0){ 
+				followers[i]->Steering()->OffsetPursuitOn(followers[i-4], Vector2D(10,10));
+			}else if(i%4 == 1){
+				followers[i]->Steering()->OffsetPursuitOn(followers[i-4], Vector2D(-10,10));
+			}else if(i%4 == 2){
+				followers[i]->Steering()->OffsetPursuitOn(followers[i-4], Vector2D(-10,-10));
+			}else if(i%4 == 3){
+				followers[i]->Steering()->OffsetPursuitOn(followers[i-4], Vector2D(10,-10));
 			}
 		}
 	}
