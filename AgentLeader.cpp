@@ -2,6 +2,8 @@
 #include "AgentPoursuiveur.h"
 #include "SteeringBehaviors.h"
 #include "GameWorld.h"
+#include <math.h> 
+#include <iostream> 
 
 
 //----------------------------- ctor -------------------------------------
@@ -97,7 +99,7 @@ void AgentLeader::Update(double time_elapsed)
 void AgentLeader::AddFollower(Vehicle* follower){	
 	//On stop la recherche 
 	follower->Steering()->WanderOff();
-
+	double anglefin=0;float angle;
 	//On donne au follower l'offset poursuite que le Leader a choisi
 	switch(formation){
 	case Line:
@@ -144,7 +146,11 @@ void AgentLeader::AddFollower(Vehicle* follower){
 			}
 		}
 		break;
-
+	case(Cercle):
+		angle = 360/Prm.NumAgents;
+		anglefin=angle*followers.size();
+		follower->Steering()->OffsetPursuitOn(this,Vector2D(cos(anglefin)*50,sin(anglefin)*50));
+		break;
 	default:
 		break;
 	}
@@ -165,6 +171,9 @@ void AgentLeader::SetFormation(Formation form){
 		break;
 	case(X):
 		RecalculateOffsetX();
+		break;
+	case(Cercle):
+		RecalculateOffsetCercle();
 		break;
 	default:
 		break;
@@ -225,4 +234,12 @@ void AgentLeader::RecalculateOffsetX(){
 			}
 		}
 	}
+}
+
+void AgentLeader::RecalculateOffsetCercle(){
+	double angle,anglefin;angle = 360/Prm.NumAgents;anglefin = 0;
+		for(unsigned int i = 0; i<followers.size(); i++){
+			followers[i]->Steering()->OffsetPursuitOn(this, Vector2D(cos(anglefin)*50,sin(anglefin)*50));
+			anglefin+= angle;
+		}
 }

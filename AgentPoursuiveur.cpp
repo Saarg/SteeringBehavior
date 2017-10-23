@@ -114,6 +114,7 @@ void AgentPoursuiveur::Update(double time_elapsed)
 }
 
 void AgentPoursuiveur::UpdateOffsetFollower(){
+	double angle;double index = indexInFormation;
 	switch(leaderToFollow->GetFormation())
 	{
 	case(Line):
@@ -137,7 +138,13 @@ void AgentPoursuiveur::UpdateOffsetFollower(){
 			Steering()->SetOffset(Vector2D(40, -15));
 		}
 		break;
+	case(Cercle):
+		angle = 360/Prm.NumAgents;
+		angle = index*angle;
+		Steering()->SetOffset(Vector2D(50*cos(angle),50*sin(angle)));
+		break;
 	default:
+		
 		break;
 	}
 }

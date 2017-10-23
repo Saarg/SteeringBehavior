@@ -23,17 +23,20 @@
 #define ID_FORM_LINE_L1					40017
 #define ID_FORM_V_L1					40018
 #define ID_FORM_X_L1					40019
+#define ID_FORM_CERCLE_L1				40020
 
-#define ID_LEADER2						40020
-#define ID_FORM_LINE_L2					40021
-#define ID_FORM_V_L2					40022
-#define ID_FORM_X_L2					40023
+#define ID_LEADER2						40021
+#define ID_FORM_LINE_L2					40022
+#define ID_FORM_V_L2					40023
+#define ID_FORM_X_L2					40024
+#define ID_FORM_CERCLE_L2				40025
 
-#define ID_PLAYER						40024
-#define ID_FORM_LINE_P					40025
-#define ID_FORM_V_P 					40026
-#define ID_FORM_X_P 					40027
-#define ID_SHOW_COMMAND_P				40028
+#define ID_PLAYER						40026
+#define ID_FORM_LINE_P					40027
+#define ID_FORM_V_P 					40028
+#define ID_FORM_X_P 					40029
+#define ID_FORM_CERCLE_P				40030
+#define ID_SHOW_COMMAND_P				40031
 
 
 // Next default values for new objects

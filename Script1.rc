@@ -61,6 +61,7 @@ BEGIN
 	MENUITEM "Line",                        ID_FORM_LINE_L1
         MENUITEM "V",                           ID_FORM_V_L1
 	MENUITEM "X",                           ID_FORM_X_L1
+	MENUITEM "Cercle",                      ID_FORM_CERCLE_L1
     END
 
 	POPUP "Leader 2"
@@ -69,6 +70,7 @@ BEGIN
 	MENUITEM "Line",                        ID_FORM_LINE_L2
         MENUITEM "V",                           ID_FORM_V_L2
 	MENUITEM "X",                           ID_FORM_X_L2
+	MENUITEM "Cercle",                      ID_FORM_CERCLE_L2
     END
 
 	POPUP "Player"
@@ -77,6 +79,7 @@ BEGIN
 	MENUITEM "Line",                        ID_FORM_LINE_P
         MENUITEM "V",                           ID_FORM_V_P
 	MENUITEM "X",                           ID_FORM_X_P
+	MENUITEM "Cercle",                      ID_FORM_CERCLE_P
 	MENUITEM "Show/Hide Command",           ID_SHOW_COMMAND_P	
     END
 END
