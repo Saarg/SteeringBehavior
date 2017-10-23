@@ -149,7 +149,7 @@ void AgentLeader::AddFollower(Vehicle* follower){
 	case(Cercle):
 		angle = 360/Prm.NumAgents;
 		anglefin=angle*followers.size();
-		follower->Steering()->OffsetPursuitOn(this,Vector2D(cos(anglefin)*50,sin(anglefin)*50));
+		follower->Steering()->OffsetPursuitOn(this,Vector2D(20+cos(anglefin)*50,sin(anglefin)*50));
 		break;
 	default:
 		break;
@@ -239,7 +239,7 @@ void AgentLeader::RecalculateOffsetX(){
 void AgentLeader::RecalculateOffsetCercle(){
 	double angle,anglefin;angle = 360/Prm.NumAgents;anglefin = 0;
 		for(unsigned int i = 0; i<followers.size(); i++){
-			followers[i]->Steering()->OffsetPursuitOn(this, Vector2D(cos(anglefin)*50,sin(anglefin)*50));
+			followers[i]->Steering()->OffsetPursuitOn(this, Vector2D(20+cos(anglefin)*50,sin(anglefin)*50));
 			anglefin+= angle;
 		}
 }

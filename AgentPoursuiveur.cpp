@@ -141,7 +141,7 @@ void AgentPoursuiveur::UpdateOffsetFollower(){
 	case(Cercle):
 		angle = 360/Prm.NumAgents;
 		angle = index*angle;
-		Steering()->SetOffset(Vector2D(50*cos(angle),50*sin(angle)));
+		Steering()->SetOffset(Vector2D(20+50*cos(angle),50*sin(angle)));
 		break;
 	default:
 		
